@@ -17,7 +17,7 @@ public:
         Node* get(char ch) {
             return links[ch - 'a'];
         }
-        void setEnd() { // changed to void
+        void setEnd() { 
             flag = true;
         }
         bool isEnd() {
@@ -25,7 +25,7 @@ public:
         }
     };
 
-    Node* root; // made public
+    Node* root; 
 
     Trie() {
         root = new Node();
@@ -64,16 +64,7 @@ public:
         return true;
     }
 
-    vector<string> wordsWithPrefix(string prefix) {
-        vector<string> result;
-        if (!startswith(prefix)) return result;
-        Node* node = root;
-        for (char c : prefix) {
-            node = node->get(c);
-        }
-        dfs(node, prefix, result);
-        return result;
-    }
+
 
 private:
     void dfs(Node* node, string word, vector<string>& result) {
@@ -86,6 +77,6 @@ private:
     }
 };
 
-// Remove main() from Trie.cpp if you want to use it as a library
+
 
 
