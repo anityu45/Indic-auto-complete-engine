@@ -10,7 +10,8 @@ import { tamil } from '../lib/layouts/tamil'
 
 const layouts = { english, hindi, telugu, malayalam, tamil };
 
-const API_BASE = 'http://localhost:8000';
+// Configure backend API base. In production, set Vercel env VITE_API_BASE to your backend URL.
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 export default function KeyboardPage() {
   const [input, setInput] = useState('')
