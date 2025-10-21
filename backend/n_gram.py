@@ -18,7 +18,7 @@ class Trie:
         node.is_end = True
 
     def autocomplete(self, prefix: str, limit: int = 5):
-        """Return all words starting with the given prefix."""
+        
         results = []
         node = self.root
 
@@ -80,13 +80,7 @@ class NGramModel:
         return self.trie.autocomplete(prefix, limit=top_k)
 
     def hybrid_predict(self, user_input: str, top_k: int = 5):
-        """
-        Combines both 2-gram and prefix prediction.
-        Examples:
-          - "i" => next-word predictions
-          - "a" => prefix predictions
-          - "i a" => blend both
-        """
+       
         words = user_input.strip().split()
         if not words:
             return []
@@ -94,21 +88,21 @@ class NGramModel:
         # Case 1: Only one word typed
         if len(words) == 1:
             prefix = words[0]
-            # return prefix suggestions or 2-gram predictions
+
             preds = self.predict_next_word(prefix, top_k)
             if preds:
                 return preds
             else:
                 return self.predict_prefix(prefix, top_k)
 
-        # Case 2: Multiple words -> last word prefix, second last for context
+  
         prev_word = words[-2]
         prefix = words[-1]
 
         next_candidates = self.predict_next_word(prev_word, top_k)
         prefix_candidates = self.predict_prefix(prefix, top_k)
 
-        # Blend (simple union)
+
         combined = list(dict.fromkeys(next_candidates + prefix_candidates))
         return combined[:top_k]
 
